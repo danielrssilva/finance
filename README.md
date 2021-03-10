@@ -1,21 +1,39 @@
-## Available Scripts
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <img src="https://github.com/danielrssilva/finance/blob/master/src/imgs/mint-logo.svg" alt="Logo" height="80">
 
-In the project directory, you can run:
+  <h3 align="center">Mint</h3>
+</p>
+<!-- GETTING STARTED -->
+## Iniciando a aplicação
 
-### `yarn start`
+### Prerequisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+É necessário ter [Node.js](https://nodejs.org/en) ou [Yarn](https://yarnpkg.com) instalado
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Instalação
 
-### `yarn build`
+1. Clone o repositório
+   ```sh
+   git clone https://github.com/danielrssilva/finance
+   ```
+2. Instale os pacotes NPM/Yarn
+   * npm
+     ```sh
+     npm i
+     ```
+   * yarn
+     ```sh
+     yarn i
+     ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Inicie a aplicação
+   * npm
+     ```sh
+     npm start
+     ```
+   * yarn
+     ```sh
+     yarn start
+     ```
