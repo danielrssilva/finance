@@ -2,11 +2,7 @@
 <br />
 <p align="center">
   <img src="https://github.com/danielrssilva/finance/blob/master/src/imgs/mint-logo.svg" alt="Logo" height="80">
-
-  <h3 align="center">Mint</h3>
 </p>
-<!-- GETTING STARTED -->
-## Iniciando a aplicação
 
 ### Prerequisitos
 
