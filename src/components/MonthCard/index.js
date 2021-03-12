@@ -13,6 +13,7 @@ import { ImLeaf } from "react-icons/im";
 import { FcBullish, FcBearish } from "react-icons/fc";
 
 import api from "../../services/api";
+import { getId } from "../../services/auth";
 
 const MonthCard = ({
   month,
@@ -48,7 +49,7 @@ const MonthCard = ({
   const handleDelete = (id) => {
     // if (isCurrentMonth) {
     async function deleteTransaction() {
-      await api.delete(`/transaction/delete/${id}`);
+      await api.delete(`/user/transaction/delete?user=${getId()}&transaction=${id}`);
       handleNewValue();
     }
     deleteTransaction();

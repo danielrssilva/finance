@@ -46,7 +46,7 @@ export const TableDiv = styled.div`
   padding: 1rem 0 1.6rem 0;
   font-size: 1.4rem;
   top: 0;
-  height: ${({ isCurrentMonth }) => (isCurrentMonth ? "70vh" : "55vh")};
+  height: ${({ isCurrentMonth }) => (isCurrentMonth ? "65vh" : "50vh")};
   overflow-y: auto;
   svg {
     opacity: ${({ isCurrentMonth }) => (isCurrentMonth ? "1" : "0.4")};

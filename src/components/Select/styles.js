@@ -14,7 +14,12 @@ export const Container = styled.div`
   }
   select {
     border-radius: 6px;
-    border: 2px solid #333333;
+    border: 2px solid #ffffff;
     padding: 7px;
+    background: none;
+    color: white;
+    option {
+      background-color: #333333;
+    }
   }
 `;

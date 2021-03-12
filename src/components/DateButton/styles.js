@@ -8,7 +8,7 @@ export const Container = styled.div`
   margin-left: 0.3rem;
   padding: 4px;
   border-radius: 6px;
-  border: 2px solid #333333;
+  border: 2px solid #ffffff;
   cursor: pointer;
   user-select: none;
   transition: 0.2s all;

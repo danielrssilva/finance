@@ -1,6 +1,12 @@
 import React, { useState, forwardRef } from "react";
 
-import { Container, Button, StyledInputDiv, StyledInput } from "./styles";
+import {
+  Container,
+  Button,
+  StyledInputDiv,
+  StyledInput,
+  ToggleButton,
+} from "./styles";
 import { validateObject } from "../../util/validation";
 import Select from "../Select";
 import ErrorMessage from "../ErrorMessage";
@@ -8,16 +14,23 @@ import { format } from "date-fns";
 import DateButton from "../DateButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { RiArrowDropLeftLine } from "react-icons/ri";
 
 import api from "../../services/api";
+import { getId } from "../../services/auth";
 
 const InputBar = ({ handleNewValue }) => {
   const [transaction, setTransaction] = useState({
     tags: [],
     date: format(new Date(), "dd/MM/yyyy"),
+    user_id: getId(),
   });
   const [renderErrorNotification, setRenderErrorNotification] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [displayInputBar, setDisplayInputBar] = useState(true);
+  const toggleInputBar = () => {
+    setDisplayInputBar(!displayInputBar);
+  };
   const InputButton = forwardRef(({ value, onClick }, ref) => (
     <StyledInputDiv>
       <label for="date">Data da transação</label>
@@ -63,7 +76,7 @@ const InputBar = ({ handleNewValue }) => {
       (async () => {
         let response = null;
         try {
-          response = await api.post("/transaction/", transaction);
+          response = await api.post("/user/transactions/add", transaction);
         } catch (err) {
           if (err?.response?.data) {
             // setStatus("error");
@@ -78,8 +91,12 @@ const InputBar = ({ handleNewValue }) => {
             // setMessage("Cadastro realizado com sucesso.");
             setRenderErrorNotification(false);
             handleNewValue();
-            const newTest = { tags: [] };
-            setTransaction(newTest);
+            const newTransaction = {
+              tags: [],
+              date: format(new Date(), "dd/MM/yyyy"),
+              user_id: getId(),
+            };
+            setTransaction(newTransaction);
             document.getElementById("value").value = 0;
             document.getElementById("type").selectedIndex = 0;
             setSelectedDate(new Date());
@@ -88,37 +105,53 @@ const InputBar = ({ handleNewValue }) => {
       })();
     } else {
       setRenderErrorNotification(true);
+      setTimeout(() => {
+        setRenderErrorNotification(false);
+      }, 3000);
     }
   };
   return (
-    <Container>
-      <Select
-        handleChange={handleSelect}
-        id="type"
-        label="Tipo da transação"
-        type="o tipo"
-        options={transactionOptions}
-      />
-      <StyledInputDiv>
-        <label for="value">Valor da transação</label>
-        <StyledInput
-          id="value"
-          type="number"
-          step="0.25"
-          onChange={({ target }) => handleChange(target.value, target)}
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <Container displayInputBar={displayInputBar}>
+        <Select
+          handleChange={handleSelect}
+          id="type"
+          label="Tipo da transação"
+          type="o tipo"
+          options={transactionOptions}
         />
-      </StyledInputDiv>
-      <DatePicker
-        selected={selectedDate}
-        // locale="pt-BR"
-        onChange={(date) => handleDateChange(date)}
-        customInput={<InputButton />}
-      />
-      <Button type="submit" onClick={() => handleSubmit()}>
-        Salvar
-      </Button>
-      {renderErrorNotification && <ErrorMessage />}
-    </Container>
+        <StyledInputDiv>
+          <label for="value">Valor da transação</label>
+          <StyledInput
+            id="value"
+            type="number"
+            step="0.25"
+            onChange={({ target }) => handleChange(target.value, target)}
+          />
+        </StyledInputDiv>
+        <DatePicker
+          selected={selectedDate}
+          // locale="pt-BR"
+          onChange={(date) => handleDateChange(date)}
+          customInput={<InputButton />}
+        />
+        <Button type="submit" onClick={() => handleSubmit()}>
+          Cadastrar
+        </Button>
+      </Container>
+      <ToggleButton displayInputBar={displayInputBar} title="Esconder barra">
+        <RiArrowDropLeftLine
+          style={{
+            height: "40px",
+            width: "40px",
+          }}
+          onClick={() => toggleInputBar()}
+        />
+      </ToggleButton>
+      {renderErrorNotification && (
+        <ErrorMessage text="Todos os campos são obrigatórios!" />
+      )}
+    </div>
   );
 };
 

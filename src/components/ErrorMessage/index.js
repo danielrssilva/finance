@@ -3,11 +3,11 @@ import React from "react";
 import { Container } from "./styles";
 import { BiErrorCircle } from "react-icons/bi";
 
-const ErrorMessage = () => {
+const ErrorMessage = ({ text }) => {
   return (
     <Container>
       <BiErrorCircle />
-      <p>Todos os campos são obrigatórios!</p>
+      <p>{text}</p>
     </Container>
   );
 };
